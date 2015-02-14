@@ -1,0 +1,45 @@
+#!/usr/bin/perl
+
+[
+    {
+        lang => 'Ruby',
+        cmd => ['ruby', '%in%'],
+        ext => ['rb'],
+    },
+
+    {
+        lang => 'Perl',
+        cmd => ['perl', '%in%'],
+        ext => ['pl'],
+    },
+
+    {
+        lang => 'Pike',
+        cmd => ['pike', '%in%'],
+        ext => ['pike'],
+    },
+
+    {
+        lang => 'Python 2.0',
+        cmd => ['python2', '%in%'],
+        ext => ['py'],
+    },
+
+    {
+        lang => 'Python 3.0',
+        cmd => ['python3', '%in%'],
+        ext => ['py'],
+    },
+
+    {
+        lang => 'Lua',
+        cmd => ['lua', '%in%'],
+        ext => ['lua'],
+    },
+
+    {
+        lang => 'Lua JIT',
+        cmd => ['luajit', '%in%'],
+        ext => ['lua'],
+    },
+]

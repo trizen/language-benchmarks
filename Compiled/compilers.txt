@@ -1,0 +1,46 @@
+#!/usr/bin/perl
+
+[
+    {
+        lang => 'C -O0',
+        cmd => ['gcc', '-O0', '-o', '%out%', '%in%'],
+        ext => ['c'],
+    },
+
+    {
+        lang => 'C -O2',
+        cmd => ['gcc', '-O2', '-o', '%out%', '%in%'],
+        ext => ['c'],
+    },
+
+    {
+        lang => 'C -Ofast',
+        cmd => ['gcc', '-Ofast', '-o', '%out%', '%in%'],
+        ext => ['c'],
+    },
+
+    {
+        lang => 'C++ -O0',
+        cmd => ['g++', '-O0', '-o', '%out%', '%in%'],
+        ext => ['cpp'],
+    },
+
+    {
+        lang => 'C++ -O2',
+        cmd => ['g++', '-O2', '-o', '%out%', '%in%'],
+        ext => ['cpp'],
+    },
+
+    {
+        lang => 'C++ -Ofast',
+        cmd => ['g++', '-Ofast', '-o', '%out%', '%in%'],
+        ext => ['cpp'],
+    },
+
+    {
+        lang => 'Go',
+        cmd => ['go', 'build', '-o', '%out%', '%in%'],
+        ext => ['go'],
+    },
+
+]
