@@ -154,8 +154,15 @@ sub write_report {
                             )
       or die "Cannot use CSV: " . Text::CSV->error_diag();
 
-    my @columns = ('language', 'file', 'time_min', 'time_max', 'time_avg',);
+    my @columns = qw(
+      language
+      file
+      time_min
+      time_max
+      time_avg
+      );
 
+    # Create the report dir (if needed)
     if (not -d $report_dir) {
         make_path($report_dir);
     }
@@ -163,11 +170,14 @@ sub write_report {
     foreach my $name (keys %{$report}) {
         my $csv_file = catfile($report_dir, $name . '.csv');
         open my $fh, '>:encoding(UTF-8)', $csv_file;
+
+        # Print the CSV columns
         $csv->print($fh, \@columns);
 
         while (my ($file, $langs) = each %{$report->{$name}}) {
-
             while (my ($lang, $data) = each %{$langs}) {
+
+                # Set the row values
                 my %row = (
                            language => $lang,
                            file     => basename($file),
@@ -176,9 +186,12 @@ sub write_report {
                 my @time_keys = qw(time_min time_max time_avg);
                 @row{@time_keys} = @{$data}{@time_keys};
 
+                # Print the CSV row
                 $csv->print($fh, [@row{@columns}]);
             }
         }
+
+        close $fh;    # close the report
     }
 
     return 1;
