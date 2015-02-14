@@ -221,7 +221,7 @@ sub start_test {
                 if ($compile_bool) {
                     printf("\t-> compilling file: %s\n", $input_file);
 
-                    $temp_file = my $output_file = mktemp(catfile(tmpdir, 'XXXXXXXX'));
+                    my $output_file = mktemp(catfile(tmpdir, 'XXXXXXXX'));
                     my @cmd = create_cmd($compiler->{cmd}, $input_file, $output_file);
 
                     # Compile the program
@@ -237,6 +237,7 @@ sub start_test {
                         next;
                     }
 
+                    $temp_file = $output_file;
                     push @run_cmd, $output_file;
                 }
 
@@ -258,7 +259,7 @@ sub start_test {
                 }
 
                 # Delete the compiled file
-                if ($compile_bool) {
+                if ($compile_bool and defined $temp_file) {
                     unlink($temp_file);
                 }
 
