@@ -55,4 +55,28 @@
   ext  => ['ocaml', 'ml'],
  },
 
+ {
+  lang => 'Scala',
+  cmd  => ['scala', '%in%'],
+  ext  => ['scala'],
+ },
+
+ {
+  lang => 'Brat',
+  cmd  => ['brat', '%in%'],
+  ext  => ['brat'],
+ },
+
+ {
+  lang => 'Tcl',
+  cmd  => ['tclsh', '%in%'],
+  ext  => ['tcl'],
+ },
+
+ {
+  lang => 'Julia',
+  cmd  => ['julia', '%in%'],
+  ext  => ['julia', 'jl'],
+ },
+
 ]
