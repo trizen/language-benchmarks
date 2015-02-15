@@ -43,4 +43,10 @@
   ext  => ['go'],
  },
 
+ {
+  lang => 'OCaml (ocamlopt)',
+  cmd  => ['ocamlopt', '-o', '%out%', '%in%'],
+  ext  => ['ml'],
+ },
+
 ]

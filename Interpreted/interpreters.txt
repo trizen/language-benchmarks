@@ -44,8 +44,15 @@
  },
 
  {
-     lang => 'AWK',
-     cmd => ['awk', '-f', '%in%'],
-     ext => ['awk'],
+  lang => 'AWK',
+  cmd  => ['awk', '-f', '%in%'],
+  ext  => ['awk'],
  },
+
+ {
+  lang => 'OCaml',
+  cmd  => ['ocaml', '%in%'],
+  ext  => ['ocaml', 'ml'],
+ },
+
 ]
