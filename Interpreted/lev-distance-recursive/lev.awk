@@ -2,37 +2,31 @@
 BEGIN {
     a = ARGV[1];
     b = ARGV[2];
-    d = levenshteinDistance(a, b);
-    print(d);
-    exit;
+    print levenshteinDistance(a, b);
 }
 
-function levenshteinDistance(s1, s2,
-    s1First, s2First, s1Rest, s2Rest,
-    distA, distB, distC, minDist) {
+function levenshteinDistance(s, t, s1, t1, distA, distB, distC, minDist) {
 
     # If either string is empty,
     # then distance is insertion of the other's characters.
-    if (length(s1) == 0) return length(s2);
-    if (length(s2) == 0) return length(s1);
+    if (length(s) == 0) return length(t);
+    if (length(t) == 0) return length(s);
 
     # Rest of process uses first characters
     # and remainder of each string.
-    s1First = substr(s1, 1, 1);
-    s2First = substr(s2, 1, 1);
-    s1Rest = substr(s1, 2, length(s1));
-    s2Rest = substr(s2, 2, length(s2));
+    s1 = substr(s, 2, length(s));
+    t1 = substr(t, 2, length(t));
 
     # If leading characters are the same,
     # then distance is that between the rest of the strings.
-    if (s1First == s2First) {
-        return levenshteinDistance(s1Rest, s2Rest);
+    if (substr(s, 1, 1) == substr(t, 1, 1)) {
+        return levenshteinDistance(s1, t1);
     }
 
     # Find the distances between sub strings.
-    distA = levenshteinDistance(s1Rest, s2);
-    distB = levenshteinDistance(s1, s2Rest);
-    distC = levenshteinDistance(s1Rest, s2Rest);
+    distA = levenshteinDistance(s1, t1);
+    distB = levenshteinDistance(s, t1);
+    distC = levenshteinDistance(s1, t);
 
     # Return the minimum distance between substrings.
     minDist = distA;
