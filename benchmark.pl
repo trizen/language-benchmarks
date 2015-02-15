@@ -3,9 +3,11 @@
 # Author: Daniel "Trizen" Șuteu
 # License: GPLv3
 # Date: 14 February 2015
+# Edit: 15 February 2015
 # Website: http://github.com/trizen
 
-# Benchmark a list of programming languages and store the results in CSV files
+# Speed comparison of common programming languages.
+# The results are stored in separate CSV files for each test.
 
 use 5.014;
 use strict;
@@ -13,10 +15,12 @@ use autodie;
 use warnings;
 
 use Text::CSV qw();
+use Text::ParseWords qw(quotewords);
+
 use File::Temp qw(mktemp);
 use File::Path qw(make_path);
 use File::Basename qw(basename);
-use File::Spec::Functions qw(catfile catdir tmpdir);
+use File::Spec::Functions qw(catfile catdir tmpdir curdir updir);
 
 use List::Util qw(min max sum);
 use Getopt::Long qw(GetOptions);
@@ -25,6 +29,9 @@ use Time::HiRes qw(gettimeofday tv_interval);
 # The main directories which contain sub-directories with source files
 my $compiled_langs_dir    = 'Compiled';
 my $interpreted_langs_dir = 'Interpreted';
+
+# The file in which the arguments are stored
+my $arguments_file = 'args.txt';
 
 # The directories where the reports are written
 my $reports_dir             = 'Reports';
@@ -94,7 +101,8 @@ sub create_cmd {
 sub get_dir_entries {
     my ($dirname) = @_;
     opendir(my $dir_h, $dirname);
-    map { $_ => catfile($dirname, $_) } grep { $_ ne '.' and $_ ne '..' } readdir($dir_h);
+    map { $_ => catfile($dirname, $_) }
+      grep { $_ ne curdir() and $_ ne updir() } readdir($dir_h);
 }
 
 sub files_by_ext {
@@ -111,6 +119,21 @@ sub files_by_ext {
     }
 
     return @files;
+}
+
+sub get_arguments {
+    my ($files_array) = @_;
+
+    my @args;
+    foreach my $file (@{$files_array}) {
+        if (basename($file) eq $arguments_file) {
+            open my $fh, '<:utf8', $file;
+            push @args, quotewords(qr/\s+/, 0, unpack('A*', scalar(<$fh>)));
+            last;
+        }
+    }
+
+    return @args;
 }
 
 sub map_files_to_dirs {
@@ -143,7 +166,7 @@ sub mMavg {
 }
 
 sub write_report {
-    my ($report, $report_dir) = @_;
+    my ($report_ref, $report_dir) = @_;
 
     my $csv = Text::CSV->new(
                              {
@@ -167,14 +190,14 @@ sub write_report {
         make_path($report_dir);
     }
 
-    foreach my $name (keys %{$report}) {
+    foreach my $name (keys %{$report_ref}) {
         my $csv_file = catfile($report_dir, $name . '.csv');
         open my $fh, '>:encoding(UTF-8)', $csv_file;
 
         # Print the CSV columns
         $csv->print($fh, \@columns);
 
-        while (my ($file, $langs) = each %{$report->{$name}}) {
+        while (my ($file, $langs) = each %{$report_ref->{$name}}) {
             while (my ($lang, $data) = each %{$langs}) {
 
                 # Set the row values
@@ -217,6 +240,7 @@ sub start_test {
             my $lang     = $compiler->{lang};
             printf("[%s of %s] Testing language: %s...\n", $i + 1, $#{$executors} + 1, $lang);
 
+            my @args = get_arguments($files{$name});
             my @files = files_by_ext($compiler->{ext}, $files{$name});
 
             if (@files == 0) {
@@ -263,7 +287,7 @@ sub start_test {
 
                 # Run the test N times and store the elapsed times
                 foreach my $i (1 .. $repeat_n) {
-                    my $elapsed_time = time_cmd(@run_cmd);
+                    my $elapsed_time = time_cmd(@run_cmd, @args);
                     if ($elapsed_time == -1) {
                         warn "An error occurred while executing the command: @run_cmd\n";
                         last;
@@ -278,7 +302,8 @@ sub start_test {
 
                 # Add report data
                 if (@times > 0) {
-                    @{$report{$name}{$input_file}{$lang}}{qw(time_min time_max time_avg)} = mMavg(@times);
+                    my $report_name = join(' ', $name, map { s{/}{%}r } @args);
+                    @{$report{$report_name}{$input_file}{$lang}}{qw(time_min time_max time_avg)} = mMavg(@times);
                 }
                 else {
                     warn "[!] No test has been timed! Skipping file...";

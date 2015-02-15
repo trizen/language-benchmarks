@@ -1,5 +1,0 @@
-language,file,time_min,time_max,time_avg
-Ruby,hello.rb,0.029358,0.030634,0.029793
-"Python 2.0",hello.py,0.009581,0.010465,0.010053
-"Python 3.0",hello.py,0.019663,0.019903,0.0197643333333333
-Perl,hello.pl,0.00147,0.001803,0.001619

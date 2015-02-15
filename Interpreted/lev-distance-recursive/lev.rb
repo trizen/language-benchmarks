@@ -1,0 +1,17 @@
+def leven(s,t)
+
+    return t.size if s.empty?;
+    return s.size if t.empty?;
+
+    s1 = s[1..-1]
+    t1 = t[1..-1]
+
+    s[0] == t[0] ? leven(s1, t1)
+                 : 1 + [
+                        leven(s1, t1),
+                        leven(s,  t1),
+                        leven(s1, t )
+                    ].min;
+end
+
+puts leven(ARGV[0], ARGV[1]);
