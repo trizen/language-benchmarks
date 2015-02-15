@@ -44,9 +44,21 @@
  },
 
  {
-  lang => 'AWK',
-  cmd  => ['awk', '-f', '%in%'],
-  ext  => ['awk'],
+  lang => 'AWK (gawk)',
+  cmd  => ['gawk', '-f', '%in%'],
+  ext => ['awk', 'gawk'],
+ },
+
+ {
+  lang => 'AWK (nawk)',
+  cmd  => ['nawk', '-f', '%in%'],
+  ext => ['awk', 'nawk'],
+ },
+
+ {
+  lang => 'AWK (mawk)',
+  cmd  => ['mawk', '-f', '%in%'],
+  ext => ['awk', 'mawk'],
  },
 
  {
