@@ -231,21 +231,23 @@ sub start_test {
 
         # Run only a specific test name
         if ($test_name ne '') {
-            lc($test_name) eq lc($name) or next;
+            basename($test_name) eq $name or next;
         }
+
+        printf("=>> Running test: %s\n", $name);
 
         foreach my $i (0 .. $#{$executors}) {
 
             my $compiler = $executors->[$i];
             my $lang     = $compiler->{lang};
-            printf("[%s of %s] Testing language: %s...\n", $i + 1, $#{$executors} + 1, $lang);
+            printf("\n[%s of %s] Testing language: %s...\n", $i + 1, $#{$executors} + 1, $lang);
 
             my @args = get_arguments($files{$name});
             my @files = files_by_ext($compiler->{ext}, $files{$name});
 
             if (@files == 0) {
-                warn sprintf(" `-> no file has been found for extension%s: @{$compiler->{ext}}\n",
-                             @{$compiler->{ext}} > 1 ? 's' : '');
+                warn sprintf(" `-> no file has been found with extension%s: %s\n",
+                             @{$compiler->{ext}} > 1 ? 's' : '', join(', ', @{$compiler->{ext}}));
                 next;
             }
 
@@ -256,7 +258,7 @@ sub start_test {
 
                 # Case for compiled languages
                 if ($compile_bool) {
-                    printf("\t-> compilling file: %s\n", $input_file);
+                    printf(" `-> compilling file: %s\n", $input_file);
 
                     my $output_file = mktemp(catfile(tmpdir, 'XXXXXXXX'));
                     my @cmd = create_cmd($compiler->{cmd}, $input_file, $output_file);
@@ -280,6 +282,7 @@ sub start_test {
 
                 # Case for interpreted languages
                 else {
+                    printf(" `-> running file (%d times): %s\n", $repeat_n, basename($input_file));
                     @run_cmd = create_cmd($compiler->{cmd}, $input_file);
                 }
 
