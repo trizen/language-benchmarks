@@ -79,4 +79,10 @@
   ext  => ['julia', 'jl'],
  },
 
+ {
+  lang => 'PHP',
+  cmd  => ['php', '%in%'],
+  ext  => ['php'],
+ },
+
 ]
