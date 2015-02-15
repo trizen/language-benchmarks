@@ -10,3 +10,5 @@ A simple benchmark system with support for compiled and interpreted languages, g
 
 ###The Levenshtein Distance function (recursive)
 ![Levenshtein Distance](https://raw.githubusercontent.com/trizen/language-benchmarks/master/Stats/Interpreted/lev-distance.png)
+
+_The y-axis is measuring the average execution time of a process, in seconds. Lower values mean higher performance._
