@@ -1,0 +1,13 @@
+let rec f = function
+  | 0 -> 1
+  | n -> n - m(f(n-1))
+and m = function
+  | 0 -> 0
+  | n -> n - f(m(n-1))
+;;
+
+let () =
+  Printf.printf "%d\n" (f (int_of_string Sys.argv.(1)))
+
+let () =
+  Printf.printf "%d\n" (m (int_of_string Sys.argv.(1)))
