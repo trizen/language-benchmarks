@@ -8,6 +8,9 @@ A simple benchmark system with support for compiled and interpreted languages, g
 ###The 35th fibonacci number (recursive)
 ![Fibonacci recursive](https://raw.githubusercontent.com/trizen/language-benchmarks/master/Stats/Interpreted/fibonacci-35.png)
 
+###Mutual recursion (`F(120); M(120)`)
+![Mutual recursion](https://raw.githubusercontent.com/trizen/language-benchmarks/master/Stats/Interpreted/mutual-recursion-120.png)
+
 ###The Levenshtein Distance function (recursive)
 ![Levenshtein Distance](https://raw.githubusercontent.com/trizen/language-benchmarks/master/Stats/Interpreted/lev-distance.png)
 
