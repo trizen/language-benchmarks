@@ -238,16 +238,16 @@ sub start_test {
 
         foreach my $i (0 .. $#{$executors}) {
 
-            my $compiler = $executors->[$i];
-            my $lang     = $compiler->{lang};
-            printf("\n[%s of %s] Testing language: %s...\n", $i + 1, $#{$executors} + 1, $lang);
+            my $executor = $executors->[$i];
+            my $lang     = $executor->{lang};
+            printf("\n[%s of %s] Testing language: %s\n", $i + 1, $#{$executors} + 1, $lang);
 
             my @args = get_arguments($files{$name});
-            my @files = files_by_ext($compiler->{ext}, $files{$name});
+            my @files = files_by_ext($executor->{ext}, $files{$name});
 
             if (@files == 0) {
-                warn sprintf(" `-> no file has been found with extension%s: %s\n",
-                             @{$compiler->{ext}} > 1 ? 's' : '', join(', ', @{$compiler->{ext}}));
+                warn sprintf(" `-> no file has been found with the extension%s: %s\n",
+                             @{$executor->{ext}} > 1 ? 's' : '', join(', ', @{$executor->{ext}}));
                 next;
             }
 
@@ -261,18 +261,17 @@ sub start_test {
                     printf(" `-> compilling file: %s\n", $input_file);
 
                     my $output_file = mktemp(catfile(tmpdir, 'XXXXXXXX'));
-                    my @cmd = create_cmd($compiler->{cmd}, $input_file, $output_file);
+                    my @cmd = create_cmd($executor->{cmd}, $input_file, $output_file);
 
                     # Compile the program
                     execute_cmd(@cmd)
                       || do {
-                        warn "Error ($!) in executing the command: @cmd";
-                        die 1;
+                        warn "[!] Error ($!) in executing the command: @cmd\n";
                         next;
                       };
 
                     if (not -x $output_file) {
-                        warn "The output file ($output_file) is not executable!\n";
+                        warn "[!] The output file ($output_file) is not executable!\n";
                         next;
                     }
 
@@ -282,17 +281,19 @@ sub start_test {
 
                 # Case for interpreted languages
                 else {
-                    printf(" `-> running file (%d times): %s\n", $repeat_n, basename($input_file));
-                    @run_cmd = create_cmd($compiler->{cmd}, $input_file);
+                    push @run_cmd, create_cmd($executor->{cmd}, $input_file);
                 }
 
+                printf(" `-> testing %d times: %s\n", $repeat_n, basename($input_file));
+
+                # The array used to store the elapsed times
                 my @times;
 
                 # Run the test N times and store the elapsed times
                 foreach my $i (1 .. $repeat_n) {
                     my $elapsed_time = time_cmd(@run_cmd, @args);
                     if ($elapsed_time == -1) {
-                        warn "An error occurred while executing the command: @run_cmd\n";
+                        warn "[!] An error occurred while executing the command: @run_cmd\n";
                         last;
                     }
                     push @times, $elapsed_time;
@@ -303,13 +304,13 @@ sub start_test {
                     unlink($temp_file);
                 }
 
-                # Add report data
+                # Store the collected data
                 if (@times > 0) {
                     my $report_name = join(' ', $name, map { s{/}{%}r } @args);
                     @{$report{$report_name}{$input_file}{$lang}}{qw(time_min time_max time_avg)} = mMavg(@times);
                 }
                 else {
-                    warn "[!] No test has been timed! Skipping file...";
+                    warn "[!] No test has been timed! Skipping file...\n";
                     next;
                 }
             }
@@ -326,12 +327,12 @@ if ($test_compiled) {
     my %report = start_test($compiled_langs_dir, $compilers, 1);
 
     if (%report) {
-        print "** Generating the reports for compiled languages...\n";
+        print "\n** Generating the reports for compiled languages...\n";
         write_report(\%report, $compiled_reports_dir);
         print "** Done!\n";
     }
     else {
-        warn "** No report has been generated for compiled languages!\n";
+        warn "\n** No report has been generated for compiled languages!\n";
     }
 }
 
@@ -342,12 +343,12 @@ if ($test_interpreted) {
     my %report = start_test($interpreted_langs_dir, $interpreters, 0);
 
     if (%report) {
-        print "** Generating the reports for interpreted languages...\n";
+        print "\n** Generating the reports for interpreted languages...\n";
         write_report(\%report, $interpreted_reports_dir);
         print "** Done!\n";
     }
     else {
-        warn "** No report has been generated for interpreted languages!\n";
+        warn "\n** No report has been generated for interpreted languages!\n";
     }
 }
 
