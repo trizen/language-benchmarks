@@ -30,8 +30,9 @@ use Time::HiRes qw(gettimeofday tv_interval);
 my $compiled_langs_dir    = 'Compiled';
 my $interpreted_langs_dir = 'Interpreted';
 
-# The file in which the arguments are stored
+# The test specific files
 my $arguments_file = 'args.txt';
+my $ignore_file    = 'ignore.txt';
 
 # The directories where the reports are written
 my $reports_dir             = 'Reports';
@@ -59,7 +60,7 @@ options:
     -r int   : repeat each test this many times (default: $repeat_n)
 
 example:
-    $0 -i -r 1 -t "Hello World"
+    $0 -i -r 1 -t "fibonacci-recursive"
 
 USAGE
 
@@ -134,6 +135,23 @@ sub get_arguments {
     }
 
     return @args;
+}
+
+sub get_ignores {
+    my ($files_array) = @_;
+
+    my %ignore;
+    foreach my $file (@{$files_array}) {
+        if (basename($file) eq $ignore_file) {
+            open my $fh, '<:utf8', $file;
+            while (defined(my $line = <$fh>)) {
+                $ignore{unpack 'A*', $line} = 1;
+            }
+            last;
+        }
+    }
+
+    return %ignore;
 }
 
 sub map_files_to_dirs {
@@ -242,8 +260,9 @@ sub start_test {
             my $lang     = $executor->{lang};
             printf("\n[%s of %s] Testing language: %s\n", $i + 1, $#{$executors} + 1, $lang);
 
-            my @args = get_arguments($files{$name});
-            my @files = files_by_ext($executor->{ext}, $files{$name});
+            my @args   = get_arguments($files{$name});
+            my %ignore = get_ignores($files{$name});
+            my @files  = files_by_ext($executor->{ext}, $files{$name});
 
             if (@files == 0) {
                 warn sprintf(" `-> no file has been found with the extension%s: %s\n",
@@ -252,6 +271,12 @@ sub start_test {
             }
 
             foreach my $input_file (@files) {
+
+                my $basename = basename($input_file);
+                if (exists $ignore{$basename}) {
+                    printf(" `-> ignoring file: %s\n", $basename);
+                    next;
+                }
 
                 my @run_cmd;
                 my $temp_file;

@@ -25,8 +25,8 @@ function levenshteinDistance(s, t, s1, t1, distA, distB, distC, minDist) {
 
     # Find the distances between sub strings.
     distA = levenshteinDistance(s1, t1);
-    distB = levenshteinDistance(s, t1);
-    distC = levenshteinDistance(s1, t);
+    distB = levenshteinDistance(s,  t1);
+    distC = levenshteinDistance(s1, t );
 
     # Return the minimum distance between substrings.
     minDist = distA;

@@ -1,6 +1,5 @@
 sub fib {
-    my ($n) = @_;
-    $n > 1 ? fib($n-1) + fib($n-2) : $n;
+    $_[0] > 1 ? fib($_[0]-1) + fib($_[0]-2) : $_[0];
 }
 
 print fib($ARGV[0]), "\n";

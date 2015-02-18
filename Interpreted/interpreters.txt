@@ -20,13 +20,13 @@
  },
 
  {
-  lang => 'Python 2.0',
+  lang => 'Python 2',
   cmd  => ['python2', '%in%'],
   ext  => ['py', 'py2'],
  },
 
  {
-  lang => 'Python 3.0',
+  lang => 'Python 3',
   cmd  => ['python3', '%in%'],
   ext  => ['py', 'py3'],
  },
