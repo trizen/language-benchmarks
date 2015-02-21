@@ -3,37 +3,37 @@
 [
  {
   lang => 'C (gcc -O0)',
-  cmd  => ['gcc', '--std=c99', '--match=native', '-O0', '-o', '%out%', '%in%'],
+  cmd  => ['gcc', '--std=c99', '-march=native', '-O0', '-o', '%out%', '%in%'],
   ext  => ['c'],
  },
 
  {
   lang => 'C (gcc -O2)',
-  cmd  => ['gcc', '--std=c99', '--match=native', '-O2', '-o', '%out%', '%in%'],
+  cmd  => ['gcc', '--std=c99', '-march=native', '-O2', '-o', '%out%', '%in%'],
   ext  => ['c'],
  },
 
  {
   lang => 'C (gcc -Ofast)',
-  cmd  => ['gcc', '--std=c99', '--match=native', '-Ofast', '-o', '%out%', '%in%'],
+  cmd  => ['gcc', '--std=c99', '-march=native', '-Ofast', '-o', '%out%', '%in%'],
   ext  => ['c'],
  },
 
  {
   lang => 'C++ (g++ -O0)',
-  cmd  => ['g++', '--std=c++11', '--match=native', '-O0', '-o', '%out%', '%in%'],
+  cmd  => ['g++', '--std=c++11', '-march=native', '-O0', '-o', '%out%', '%in%'],
   ext  => ['cpp'],
  },
 
  {
   lang => 'C++ (g++ -O2)',
-  cmd  => ['g++', '--std=c++11', '--match=native', '-O2', '-o', '%out%', '%in%'],
+  cmd  => ['g++', '--std=c++11', '-march=native', '-O2', '-o', '%out%', '%in%'],
   ext  => ['cpp'],
  },
 
  {
   lang => 'C++ (g++ -Ofast)',
-  cmd  => ['g++', '--std=c++11', '--match=native', '-Ofast', '-o', '%out%', '%in%'],
+  cmd  => ['g++', '--std=c++11', '-march=native', '-Ofast', '-o', '%out%', '%in%'],
   ext  => ['cpp'],
  },
 
