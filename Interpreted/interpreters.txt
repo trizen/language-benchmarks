@@ -97,4 +97,10 @@
   ext  => ['php'],
  },
 
+ {
+  lang => 'Perl6 MoarVM',
+  cmd  => ['perl6-m', '%in%'],
+  ext  => ['p6', 'pl6'],
+ },
+
 ]
