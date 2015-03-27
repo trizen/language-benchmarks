@@ -103,4 +103,10 @@
   ext  => ['p6', 'pl6'],
  },
 
+ {
+  lang => 'Groovy',
+  cmd  => ['groovy', '%in%'],
+  ext  => ['groovy', 'gvy', 'gy'],
+ },
+
 ]
