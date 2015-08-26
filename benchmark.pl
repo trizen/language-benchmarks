@@ -39,7 +39,7 @@ my $reports_dir             = 'Reports';
 my $compiled_reports_dir    = catdir($reports_dir, 'Compiled');
 my $interpreted_reports_dir = catdir($reports_dir, 'Interpreted');
 
-# The compilers and intepreters definitions
+# The compilers and interpreters definitions
 my $compilers    = do(catfile($compiled_langs_dir,    'compilers.txt'));
 my $interpreters = do(catfile($interpreted_langs_dir, 'interpreters.txt'));
 
@@ -203,7 +203,7 @@ sub write_report {
       time_avg
       );
 
-    # Create the report dir (if needed)
+    # Create the report directory (if needed)
     if (not -d $report_dir) {
         make_path($report_dir);
     }
@@ -346,7 +346,7 @@ sub start_test {
 }
 
 #
-## Test the compiled langauges
+## Test the compiled languages
 #
 if ($test_compiled) {
     my %report = start_test($compiled_langs_dir, $compilers, 1);

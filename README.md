@@ -1,4 +1,4 @@
-# Speed comparsion of programming languages
+# Performance comparison of programming languages
 
 A simple benchmark system with support for compiled and interpreted languages, generating CSV reports.
 
