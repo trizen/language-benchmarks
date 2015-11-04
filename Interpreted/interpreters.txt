@@ -8,6 +8,12 @@
  },
 
  {
+  lang => 'JRuby',
+  cmd  => ['jruby', '%in%'],
+  ext  => ['rb'],
+ },
+
+ {
   lang => 'Perl',
   cmd  => ['perl', '%in%'],
   ext  => ['pl'],
@@ -109,4 +115,9 @@
   ext  => ['groovy', 'gvy', 'gy'],
  },
 
+ {
+  lang => 'Elixir',
+  cmd  => ['elixir', '%in%'],
+  ext  => ['ex', 'exs'],
+ },
 ]
