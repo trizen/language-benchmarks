@@ -1,0 +1,13 @@
+def num_paths(startsum,lastcoin)
+    return 1 if (startsum==250);
+    paths = 0
+    [1,2,5,10,20,50,100,200].each do |coin|
+        if ((lastcoin>=coin) and (startsum<=(250-coin)))
+            paths = paths + num_paths(startsum+coin,coin)
+        end
+    end
+
+    paths
+end
+
+puts(num_paths(0,250))
