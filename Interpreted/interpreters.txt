@@ -38,6 +38,12 @@
  },
 
  {
+  lang => 'PyPy',
+  cmd  => ['pypy', '%in%'],
+  ext  => ['py', 'pypy'],
+ },
+
+ {
   lang => 'Lua',
   cmd  => ['lua', '%in%'],
   ext  => ['lua'],
