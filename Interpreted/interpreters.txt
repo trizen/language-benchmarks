@@ -126,4 +126,10 @@
   cmd  => ['elixir', '%in%'],
   ext  => ['ex', 'exs'],
  },
+
+ {
+  lang => 'Clojure',
+  cmd  => ['clojure', '%in%'],
+  ext  => ['clj'],
+ },
 ]
