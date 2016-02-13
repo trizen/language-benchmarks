@@ -3,4 +3,4 @@ function tak(x, y, z)
            : z)
 end
 
-println(tak(int(ARGS[1]),int(ARGS[2]),int(ARGS[3])));
+println(tak(parse(Int,ARGS[1]),parse(Int,ARGS[2]),parse(Int,ARGS[3])));

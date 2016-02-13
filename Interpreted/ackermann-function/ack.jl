@@ -8,4 +8,4 @@ function ack(m,n)
     end
 end
 
-println(ack(int(ARGS[1]), int(ARGS[2])));
+println(ack(parse(Int, ARGS[1]), parse(Int, ARGS[2])));
