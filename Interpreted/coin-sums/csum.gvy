@@ -9,4 +9,4 @@ def num_paths(startsum,lastcoin) {
     return paths
 }
 
-println(num_paths(0, 250));
+println(num_paths(args[0].toInteger(), args[1].toInteger()));

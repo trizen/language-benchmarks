@@ -257,7 +257,7 @@ sub start_test {
         foreach my $i (0 .. $#{$executors}) {
 
             my $executor = $executors->[$i];
-            my $lang     = $executor->{lang};
+            my $lang     = $executor->{name};
             printf("\n[%s of %s] Testing language: %s\n", $i + 1, $#{$executors} + 1, $lang);
 
             my @args   = get_arguments($files{$name});

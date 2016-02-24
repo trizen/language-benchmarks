@@ -17,5 +17,5 @@ function num_paths($startsum, $lastcoin) {
     return $paths;
 }
 
-echo num_paths(0, 250), "\n";
+echo num_paths($argv[1], $argv[2]), "\n";
 ?>

@@ -10,4 +10,4 @@ function num_paths(startsum,lastcoin)
     return paths
 end
 
-print(num_paths(0,250))
+print(num_paths(tonumber(arg[1]), tonumber(arg[2])))

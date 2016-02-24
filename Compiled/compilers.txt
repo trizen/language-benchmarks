@@ -2,49 +2,49 @@
 
 [
  {
-  lang => 'C (gcc -O0)',
+  name => 'C (gcc -O0)',
   cmd  => ['gcc', '--std=c99', '-march=native', '-O0', '-o', '%out%', '%in%'],
   ext  => ['c'],
  },
 
  {
-  lang => 'C (gcc -O2)',
+  name => 'C (gcc -O2)',
   cmd  => ['gcc', '--std=c99', '-march=native', '-O2', '-o', '%out%', '%in%'],
   ext  => ['c'],
  },
 
  {
-  lang => 'C (gcc -Ofast)',
+  name => 'C (gcc -Ofast)',
   cmd  => ['gcc', '--std=c99', '-march=native', '-Ofast', '-o', '%out%', '%in%'],
   ext  => ['c'],
  },
 
  {
-  lang => 'C++ (g++ -O0)',
+  name => 'C++ (g++ -O0)',
   cmd  => ['g++', '--std=c++11', '-march=native', '-O0', '-o', '%out%', '%in%'],
   ext  => ['cpp'],
  },
 
  {
-  lang => 'C++ (g++ -O2)',
+  name => 'C++ (g++ -O2)',
   cmd  => ['g++', '--std=c++11', '-march=native', '-O2', '-o', '%out%', '%in%'],
   ext  => ['cpp'],
  },
 
  {
-  lang => 'C++ (g++ -Ofast)',
+  name => 'C++ (g++ -Ofast)',
   cmd  => ['g++', '--std=c++11', '-march=native', '-Ofast', '-o', '%out%', '%in%'],
   ext  => ['cpp'],
  },
 
  {
-  lang => 'Go (go)',
+  name => 'Go (go)',
   cmd  => ['go', 'build', '-o', '%out%', '%in%'],
   ext  => ['go'],
  },
 
  {
-  lang => 'OCaml (ocamlopt)',
+  name => 'OCaml (ocamlopt)',
   cmd  => ['ocamlopt', '-o', '%out%', '%in%'],
   ext  => ['ml'],
  },

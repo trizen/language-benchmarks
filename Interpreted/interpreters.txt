@@ -2,133 +2,133 @@
 
 [
  {
-  lang => 'Ruby',
+  name => 'Ruby',
   cmd  => ['ruby', '%in%'],
   ext  => ['rb'],
  },
 
  {
-  lang => 'JRuby',
+  name => 'JRuby',
   cmd  => ['jruby', '%in%'],
   ext  => ['rb'],
  },
 
  {
-  lang => 'Perl',
+  name => 'Perl',
   cmd  => ['perl', '%in%'],
   ext  => ['pl'],
  },
 
  {
-  lang => 'Pike',
+  name => 'Pike',
   cmd  => ['pike', '%in%'],
   ext  => ['pike'],
  },
 
  {
-  lang => 'Python 2',
+  name => 'Python 2',
   cmd  => ['python2', '%in%'],
   ext  => ['py', 'py2'],
  },
 
  {
-  lang => 'Python 3',
+  name => 'Python 3',
   cmd  => ['python3', '%in%'],
   ext  => ['py', 'py3'],
  },
 
  {
-  lang => 'PyPy',
+  name => 'PyPy',
   cmd  => ['pypy', '%in%'],
   ext  => ['py', 'pypy'],
  },
 
  {
-  lang => 'Lua',
+  name => 'Lua',
   cmd  => ['lua', '%in%'],
   ext  => ['lua'],
  },
 
  {
-  lang => 'Lua JIT',
+  name => 'LuaJIT',
   cmd  => ['luajit', '%in%'],
   ext  => ['lua'],
  },
 
  {
-  lang => 'AWK (gawk)',
+  name => 'AWK (gawk)',
   cmd  => ['gawk', '-f', '%in%'],
   ext => ['awk', 'gawk'],
  },
 
  {
-  lang => 'AWK (nawk)',
+  name => 'AWK (nawk)',
   cmd  => ['nawk', '-f', '%in%'],
   ext => ['awk', 'nawk'],
  },
 
  {
-  lang => 'AWK (mawk)',
+  name => 'AWK (mawk)',
   cmd  => ['mawk', '-f', '%in%'],
   ext => ['awk', 'mawk'],
  },
 
  {
-  lang => 'OCaml',
+  name => 'OCaml',
   cmd  => ['ocaml', '%in%'],
   ext  => ['ocaml', 'ml'],
  },
 
  {
-  lang => 'Scala',
+  name => 'Scala',
   cmd  => ['scala', '%in%'],
-  ext  => ['scala'],
+  ext  => ['scala', 'sc'],
  },
 
  {
-  lang => 'Brat',
+  name => 'Brat',
   cmd  => ['brat', '%in%'],
   ext  => ['brat'],
  },
 
  {
-  lang => 'Tcl',
+  name => 'Tcl',
   cmd  => ['tclsh', '%in%'],
   ext  => ['tcl'],
  },
 
  {
-  lang => 'Julia',
+  name => 'Julia',
   cmd  => ['julia', '%in%'],
   ext  => ['julia', 'jl'],
  },
 
  {
-  lang => 'PHP',
+  name => 'PHP',
   cmd  => ['php', '%in%'],
   ext  => ['php'],
  },
 
  {
-  lang => 'Perl6 MoarVM',
+  name => 'Perl6 MoarVM',
   cmd  => ['perl6-m', '%in%'],
   ext  => ['p6', 'pl6'],
  },
 
  {
-  lang => 'Groovy',
+  name => 'Groovy',
   cmd  => ['groovy', '%in%'],
   ext  => ['groovy', 'gvy', 'gy'],
  },
 
  {
-  lang => 'Elixir',
+  name => 'Elixir',
   cmd  => ['elixir', '%in%'],
   ext  => ['ex', 'exs'],
  },
 
  {
-  lang => 'Clojure',
+  name => 'Clojure',
   cmd  => ['clojure', '%in%'],
   ext  => ['clj'],
  },

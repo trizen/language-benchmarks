@@ -9,4 +9,4 @@ function num_paths(startsum,lastcoin)
     return paths
 end
 
-println(num_paths(0, 250));
+println(num_paths(parse(Int,ARGS[1]),parse(Int,ARGS[2])));

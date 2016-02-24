@@ -1,3 +1,5 @@
+import sys
+
 def num_paths(startsum,lastcoin):
     if (startsum==250): return 1
     paths = 0
@@ -7,4 +9,4 @@ def num_paths(startsum,lastcoin):
 
     return paths
 
-print(num_paths(0,250))
+print(num_paths(int(sys.argv[1]), int(sys.argv[2])))

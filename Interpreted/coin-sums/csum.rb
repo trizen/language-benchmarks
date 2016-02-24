@@ -10,4 +10,4 @@ def num_paths(startsum,lastcoin)
     paths
 end
 
-puts(num_paths(0,250))
+puts(num_paths(ARGV[0].to_i, ARGV[1].to_i))

@@ -13,4 +13,4 @@ sub num_paths {
     $paths;
 }
 
-print num_paths(0, 250), "\n";
+print num_paths($ARGV[0], $ARGV[1]), "\n";
