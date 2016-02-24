@@ -1,7 +1,7 @@
 def leven(s,t)
 
-    return t.size if s.empty?;
-    return s.size if t.empty?;
+    return t.size if s.empty?
+    return s.size if t.empty?
 
     s1 = s[1..-1]
     t1 = t[1..-1]
@@ -11,7 +11,7 @@ def leven(s,t)
                         leven(s1, t1),
                         leven(s,  t1),
                         leven(s1, t )
-                    ].min;
+                       ].min
 end
 
-puts leven(ARGV[0], ARGV[1]);
+puts leven(ARGV[0], ARGV[1])

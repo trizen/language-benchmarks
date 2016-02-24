@@ -8,12 +8,6 @@
  },
 
  {
-  name => 'JRuby',
-  cmd  => ['jruby', '%in%'],
-  ext  => ['rb'],
- },
-
- {
   name => 'Perl',
   cmd  => ['perl', '%in%'],
   ext  => ['pl'],
@@ -131,5 +125,17 @@
   name => 'Clojure',
   cmd  => ['clojure', '%in%'],
   ext  => ['clj'],
+ },
+
+ {
+  name => 'Crystal',
+  cmd  => ['crystal', '%in%', '--'],
+  ext  => ['cr'],
+ },
+
+ {
+  name => 'JRuby',
+  cmd  => ['jruby', '%in%'],
+  ext  => ['rb'],
  },
 ]

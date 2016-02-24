@@ -1,9 +1,9 @@
-def F(n)
-  n == 0 ? 1 : n - M(F(n-1))
+def f(n)
+  n == 0 ? 1 : n - m(f(n-1))
 end
-def M(n)
-  n == 0 ? 0 : n - F(M(n-1))
+def m(n)
+  n == 0 ? 0 : n - f(m(n-1))
 end
 
-puts F(ARGV[0].to_i);
-puts M(ARGV[0].to_i);
+puts f(ARGV[0].to_i);
+puts m(ARGV[0].to_i);
