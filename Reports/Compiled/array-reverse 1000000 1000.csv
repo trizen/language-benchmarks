@@ -1,0 +1,5 @@
+language,file,time_min,time_max,time_avg
+"Go (go)",rev.go,1.076515,1.076515,1.076515
+"C (gcc -O2)",rev.c,0.000818,0.000818,0.000818
+"C (gcc -O0)",rev.c,2.406096,2.406096,2.406096
+"C (gcc -Ofast)",rev.c,0.000814,0.000814,0.000814

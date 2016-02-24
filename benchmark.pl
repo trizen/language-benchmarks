@@ -322,7 +322,7 @@ sub start_test {
                     my $time = time_cmd(@cmd);
 
                     if ($time > 0) {
-                        $load_time = $time;
+                        $load_time = time_cmd(@cmd);       # time again to get a more accurate result
                     }
                     else {
                         warn "[!] An error occurred while timing the loading time: @cmd";

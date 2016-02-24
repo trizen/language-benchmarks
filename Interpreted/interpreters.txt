@@ -8,6 +8,12 @@
  },
 
  {
+  name => 'mRuby',
+  cmd  => ['mruby', '%in%'],
+  ext  => ['mrb'],
+ },
+
+ {
   name => 'Perl',
   cmd  => ['perl', '%in%'],
   ext  => ['pl'],

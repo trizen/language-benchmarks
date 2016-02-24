@@ -1,0 +1,4 @@
+language,file,time_min,time_max,time_avg
+"Go (go)",mob2.go,0.472929,0.473625,0.473166666666667
+"Go (go)",mob.go,0.492592,0.496272,0.494354333333333
+"OCaml (ocamlopt)",mob.ml,0.036739,0.037396,0.0370853333333333
