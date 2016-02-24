@@ -70,13 +70,13 @@
  {
   name => 'OCaml',
   cmd  => ['ocaml', '%in%'],
-  ext  => ['ocaml', 'ml'],
+  ext  => ['ml', 'ocaml'],
  },
 
  {
   name => 'Scala',
   cmd  => ['scala', '%in%'],
-  ext  => ['scala', 'sc'],
+  ext  => ['sc', 'scala'],
  },
 
  {
@@ -94,7 +94,7 @@
  {
   name => 'Julia',
   cmd  => ['julia', '%in%'],
-  ext  => ['julia', 'jl'],
+  ext  => ['jl', 'julia'],
  },
 
  {
@@ -112,7 +112,7 @@
  {
   name => 'Groovy',
   cmd  => ['groovy', '%in%'],
-  ext  => ['groovy', 'gvy', 'gy'],
+  ext  => ['gvy', 'groovy', 'gy'],
  },
 
  {

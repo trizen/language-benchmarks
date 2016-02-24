@@ -17,8 +17,8 @@ use warnings;
 use Text::CSV qw();
 use Text::ParseWords qw(quotewords);
 
-use File::Temp qw(mktemp);
 use File::Path qw(make_path);
+use File::Temp qw(mktemp tempfile tempdir);
 use File::Basename qw(basename);
 use File::Spec::Functions qw(catfile catdir tmpdir curdir updir);
 
@@ -198,6 +198,7 @@ sub write_report {
     my @columns = qw(
       language
       file
+      load_time
       time_min
       time_max
       time_avg
@@ -224,7 +225,7 @@ sub write_report {
                            file     => basename($file),
                           );
 
-                my @time_keys = qw(time_min time_max time_avg);
+                my @time_keys = qw(load_time time_min time_max time_avg);
                 @row{@time_keys} = @{$data}{@time_keys};
 
                 # Print the CSV row
@@ -244,6 +245,9 @@ sub start_test {
     my %report;
     my %entries = get_dir_entries($languages_dir);
     my %files   = map_files_to_dirs(%entries);
+
+    my %tmpcache;
+    my $tmpdir = tempdir(CLEANUP => 1);
 
     foreach my $name (sort keys %files) {
 
@@ -281,6 +285,8 @@ sub start_test {
                 my @run_cmd;
                 my $temp_file;
 
+                my $load_time = 0;
+
                 # Case for compiled languages
                 if ($compile_bool) {
                     printf(" `-> compilling file: %s\n", $input_file);
@@ -306,6 +312,22 @@ sub start_test {
 
                 # Case for interpreted languages
                 else {
+                    my $tmpfile = $tmpcache{$executor->{ext}[0]} // do {
+                        my (undef, $file) = tempfile(DIR => $tmpdir, SUFFIX => ".$executor->{ext}[0]");
+                        $tmpcache{$executor->{ext}[0]} = $file;
+                        $file;
+                    };
+
+                    my @cmd = create_cmd($executor->{cmd}, $tmpfile);
+                    my $time = time_cmd(@cmd);
+
+                    if ($time > 0) {
+                        $load_time = $time;
+                    }
+                    else {
+                        warn "[!] An error occurred while timing the loading time: @cmd";
+                    }
+
                     push @run_cmd, create_cmd($executor->{cmd}, $input_file);
                 }
 
@@ -321,7 +343,7 @@ sub start_test {
                         warn "[!] An error occurred while executing the command: @run_cmd\n";
                         last;
                     }
-                    push @times, $elapsed_time;
+                    push @times, $elapsed_time - $load_time;
                 }
 
                 # Delete the compiled file
@@ -332,7 +354,8 @@ sub start_test {
                 # Store the collected data
                 if (@times > 0) {
                     my $report_name = join(' ', $name, map { s{/}{%}r } @args);
-                    @{$report{$report_name}{$input_file}{$lang}}{qw(time_min time_max time_avg)} = mMavg(@times);
+                    @{$report{$report_name}{$input_file}{$lang}}{qw(load_time time_min time_max time_avg)} =
+                      ($load_time, mMavg(@times));
                 }
                 else {
                     warn "[!] No test has been timed! Skipping file...\n";
