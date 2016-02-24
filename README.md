@@ -23,7 +23,7 @@ A simple benchmark system with support for compiled and interpreted languages, g
 ###Coin sums (recursive)
 ![Coin sums](https://raw.githubusercontent.com/trizen/language-benchmarks/master/Stats/Interpreted/coin-sums-0-250.png)
 
-###Man or boy test (`mob(12)`)
+###Man or boy (`mob(12)`)
 ![Man or boy](https://raw.githubusercontent.com/trizen/language-benchmarks/master/Stats/Interpreted/man-or-boy-12.png)
 
 _The y-axis is measuring the average execution time of a process, in seconds. Lower values are better._
