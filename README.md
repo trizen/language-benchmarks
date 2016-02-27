@@ -2,6 +2,9 @@
 
 A simple benchmark system with support for compiled and interpreted languages, generating CSV reports.
 
+### Overview
+![Overview](https://raw.githubusercontent.com/trizen/language-benchmarks/master/Stats/Interpreted/all.png)
+
 ###Ackermann function (`ack(3,9)`)
 ![Ackermann recursive](https://raw.githubusercontent.com/trizen/language-benchmarks/master/Stats/Interpreted/ack-function-3-9.png)
 
