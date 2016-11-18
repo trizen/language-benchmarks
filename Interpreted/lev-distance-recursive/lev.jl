@@ -1,7 +1,7 @@
 function leven(s, t)
 
-    length(s) == 0 && return length(t);
-    length(t) == 0 && return length(s);
+    s == "" && return length(t);
+    t == "" && return length(s);
 
     s1 = s[2:end];
     t1 = t[2:end];
