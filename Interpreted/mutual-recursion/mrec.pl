@@ -1,5 +1,8 @@
-sub F { $_[0] ? $_[0] - M(F($_[0]-1)) : 1 }
-sub M { $_[0] ? $_[0] - F(M($_[0]-1)) : 0 }
+
+use experimental qw(signatures);
+
+sub F($n) { $n == 0 ? 1 : $n - M(F($n-1)) }
+sub M($n) { $n == 0 ? 0 : $n - F(M($n-1)) }
 
 print F($ARGV[0]), "\n";
 print M($ARGV[0]), "\n";

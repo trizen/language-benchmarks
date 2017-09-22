@@ -23,7 +23,7 @@ end
 [s | tail] = System.argv
 [t | _] = tail
 
-s = s |> to_char_list
-t = t |> to_char_list
+s = s |> to_charlist
+t = t |> to_charlist
 
 IO.puts Levenshtein.distance(s, t);
