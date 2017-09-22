@@ -20,7 +20,7 @@ use Text::ParseWords qw(quotewords);
 use File::Path qw(make_path);
 use File::Temp qw(mktemp tempfile tempdir);
 use File::Basename qw(basename);
-use File::Spec::Functions qw(catfile catdir tmpdir curdir updir);
+use File::Spec::Functions qw(rel2abs catfile catdir tmpdir curdir updir);
 
 use List::Util qw(min max sum);
 use Getopt::Long qw(GetOptions);
@@ -40,8 +40,8 @@ my $compiled_reports_dir    = catdir($reports_dir, 'Compiled');
 my $interpreted_reports_dir = catdir($reports_dir, 'Interpreted');
 
 # The compilers and interpreters definitions
-my $compilers    = do(catfile($compiled_langs_dir,    'compilers.txt'));
-my $interpreters = do(catfile($interpreted_langs_dir, 'interpreters.txt'));
+my $compilers    = do(rel2abs(catfile($compiled_langs_dir,    'compilers.txt')));
+my $interpreters = do(rel2abs(catfile($interpreted_langs_dir, 'interpreters.txt')));
 
 # Flags
 my $test_compiled    = 0;
@@ -322,7 +322,7 @@ sub start_test {
                     my $time = time_cmd(@cmd);
 
                     if ($time > 0) {
-                        $load_time = time_cmd(@cmd);       # time again to get a more accurate result
+                        $load_time = time_cmd(@cmd);    # time again to get a more accurate result
                     }
                     else {
                         warn "[!] An error occurred while timing the loading time: @cmd";
