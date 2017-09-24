@@ -256,7 +256,7 @@ sub start_test {
             basename($test_name) eq $name or next;
         }
 
-        printf("=>> Running test: %s\n", $name);
+        printf("\n\t=>> Running test: %s\n", $name);
 
         foreach my $i (0 .. $#{$executors}) {
 
