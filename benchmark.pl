@@ -47,6 +47,7 @@ my $interpreters = do(rel2abs(catfile($interpreted_langs_dir, 'interpreters.txt'
 my $test_compiled    = 0;
 my $test_interpreted = 0;
 my $repeat_n         = 3;
+my $test_loadtime    = 0;
 my $test_name        = '';
 
 sub help {
@@ -58,6 +59,7 @@ options:
     -c       : test compiled languages
     -t name  : run only a specific test
     -r int   : repeat each test this many times (default: $repeat_n)
+    -l       : time loadtime and subtract it from runtime (default: $test_loadtime)
 
 example:
     $0 -i -r 1 -t "fibonacci-recursive"
@@ -72,6 +74,7 @@ GetOptions(
            'c!'     => \$test_compiled,
            'r=i'    => \$repeat_n,
            't=s'    => \$test_name,
+           'l!'     => \$test_loadtime,
            'help|h' => \&help,
           )
   or die("Error in command line arguments!");
@@ -312,20 +315,24 @@ sub start_test {
 
                 # Case for interpreted languages
                 else {
-                    my $tmpfile = $tmpcache{$executor->{ext}[0]} // do {
-                        my (undef, $file) = tempfile(DIR => $tmpdir, SUFFIX => ".$executor->{ext}[0]");
-                        $tmpcache{$executor->{ext}[0]} = $file;
-                        $file;
-                    };
 
-                    my @cmd = create_cmd($executor->{cmd}, $tmpfile);
-                    my $time = time_cmd(@cmd);
+                    # Test the load-time of the interpreter by executing an empty program
+                    if ($test_loadtime) {
+                        my $tmpfile = $tmpcache{$executor->{ext}[0]} // do {
+                            my (undef, $file) = tempfile(DIR => $tmpdir, SUFFIX => ".$executor->{ext}[0]");
+                            $tmpcache{$executor->{ext}[0]} = $file;
+                            $file;
+                        };
 
-                    if ($time > 0) {
-                        $load_time = time_cmd(@cmd);    # time again to get a more accurate result
-                    }
-                    else {
-                        warn "[!] An error occurred while timing the loading time: @cmd";
+                        my @cmd = create_cmd($executor->{cmd}, $tmpfile);
+                        my $time = time_cmd(@cmd);
+
+                        if ($time > 0) {
+                            $load_time = time_cmd(@cmd);    # time again to get a more accurate result
+                        }
+                        else {
+                            warn "[!] An error occurred while timing the loading time: @cmd";
+                        }
                     }
 
                     push @run_cmd, create_cmd($executor->{cmd}, $input_file);
@@ -343,7 +350,8 @@ sub start_test {
                         warn "[!] An error occurred while executing the command: @run_cmd\n";
                         last;
                     }
-                    push @times, $elapsed_time - $load_time;
+
+                    push @times, ($test_loadtime ? ($elapsed_time - $load_time) : $elapsed_time);
                 }
 
                 # Delete the compiled file
