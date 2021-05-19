@@ -1,12 +1,16 @@
 interp recursionlimit {} [expr {10000}]
 
+namespace import ::tcl::mathop::*
+
 proc ack {m n} {
-    if {$m == 0} {
-        expr {$n + 1}
-    } elseif {$n == 0} {
-        ack [expr {$m - 1}] 1
+    if {! $m} {
+        incr n
+    } elseif {! $n} {
+	incr m -1
+        ack $m 1
     } else {
-        ack [expr {$m - 1}] [ack $m [expr {$n - 1}]]
+        incr n -1
+        ack [- $m 1] [ack $m $n]
     }
 }
 
