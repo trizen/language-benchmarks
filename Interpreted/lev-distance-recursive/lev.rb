@@ -1,7 +1,7 @@
 def leven(s,t)
 
-    return t.size if s.empty?
-    return s.size if t.empty?
+    return t.size if (s == "")
+    return s.size if (t == "")
 
     s1 = s[1..-1]
     t1 = t[1..-1]
